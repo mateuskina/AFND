@@ -1,6 +1,7 @@
 #ABERTURA DOS ARQUIVOS DE TEXTO
 automato = open("automato.txt", "r")
 entrada = open("entrada.txt", "r")
+saida = open("saida.txt", "w")
 
 #ESTADOS
 estados = automato.readline().split()
@@ -32,23 +33,12 @@ while len(linha) > 0:
     entradas.append(linha)
     linha = entrada.readline().rstrip()
 
-print()
-print("Entrada: " + str(estados))
-print("Alfabeto: " + str(alfabeto))
-print("Estado Inicial: " + str(estadoInicial))
-print("Estados Finais: " + str(estadosFinais))
-print("Matriz: ")
-for i in matriz:
-    print(i)
-print("Entradas: " + str(entradas))
-
 #Caminhando Linha entrada
 for linhaEntrada in entradas:
     copias = estadoInicial
     
     #Caminhando digito linha entrada
     for digitoLinhaEntrada in linhaEntrada:
-        print("Simbolo lido: ",digitoLinhaEntrada)
         #Descobrir valor coluna
         valorColuna = alfabeto.index(digitoLinhaEntrada)
         
@@ -59,10 +49,7 @@ for linhaEntrada in entradas:
             #Descobrir valor linha
             valorLinha = estados.index(valorCopia)
 
-            print("Valor linha: ",valorLinha)
-            print("valor coluna: ",valorColuna)
             atual = matriz[valorLinha][valorColuna]
-            print("Valor matriz: ",atual)
 
             #Verificar se posição na matriz não é nulo
             if atual.count("*") == 0:
@@ -77,7 +64,6 @@ for linhaEntrada in entradas:
                             copiasNova[valorIndexCopia] = valorAtual
                         else:
                             copiasNova.append(valorAtual)
-                            print("copias novas",copiasNova)
             #if matriz[valorLinha][len(alfabeto)]!="*":
             #    print("tem o numero 3")
             if matriz[valorLinha][len(alfabeto)][0] != "*":
@@ -85,16 +71,7 @@ for linhaEntrada in entradas:
         copias = []                    
         copias = copiasNova
         
-        print("Copias: ",copias)                    
-    if copias.index(estadosFinais):
+    if copias.index(estadosFinais[0]):
         saida.write("ACEITO\n")
     else:
         saida.write("NEGADO\n")
-                
-
-
-
-
-        print("------------------")
-        print("")
-    print(copias)
